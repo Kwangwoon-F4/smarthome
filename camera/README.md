@@ -1,3 +1,3 @@
-<h1> Webcam code </h1>
-***
-face recognition for different user
+# Webcam code 
+<hr/>
+> face recognition for different user
