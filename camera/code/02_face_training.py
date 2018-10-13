@@ -30,7 +30,7 @@ recognizer.train(faces, np.array(ids))
 # Save the model into trainer/trainer.yml
 recognizer.write('../trainer/trainer.yml') # recognizer.save() doesn't work
 # Print the number of faces trained and end program
-print("\n [INFO] {0} faces trained. Exiting Program".format(len(np.unique(ids))))
+print("\n [INFO] {0} faces trained. trained file saved at trainer/trainer.xml. Exiting Program".format(len(np.unique(ids))))
 
 
 
