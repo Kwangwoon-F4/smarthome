@@ -1,7 +1,8 @@
 from flask import Flask, Response
 import cv2
 import numpy as np
-import os 
+import os
+from ..router import ubidot
 
 class Camera(object):
 	def __init__(self):
@@ -18,7 +19,7 @@ class Camera(object):
 
 		# Camera initialize
 		self.cam = cv2.VideoCapture(0)
-		self.cam.set(3, 640) # set video widht
+		self.cam.set(3, 640) # set video width
 		self.cam.set(4, 480) # set video height
 
 		# Define min window size to be recognized as a face
@@ -55,7 +56,8 @@ class Camera(object):
 			cv2.putText(frame, str(confidence), (x+5,y+h-5), self.font, 1, (255,255,0), 1)
 			print("\n after putting text on frame")
 		cv2.imwrite('stream.jpg', frame)
-			#cv2.imshow('camera', frame) 
+		ubidot.send_face()				# ubidot의 send_face 함수 가져옴
+		#cv2.imshow('camera', frame)
 #			k = cv2.waitKey(10) & 0xff
 #			if k == 27:
 #				print("\n [INFO] Exiting program and cleaning stuff")
