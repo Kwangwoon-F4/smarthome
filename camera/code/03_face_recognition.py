@@ -2,9 +2,7 @@ from flask import Flask, Response
 import cv2
 import numpy as np
 import os
-import sys
-sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))
-from ..router.ubidot import ubidot
+import router.ubidot as Ubidot
 
 class Camera(object):
 	def __init__(self):
@@ -12,6 +10,7 @@ class Camera(object):
 		self.recognizer.read('../trainer/trainer.yml')
 		self.faceCascade = cv2.CascadeClassifier('../data/haarcascade_frontalface_default.xml')
 		self.font = cv2.FONT_HERSHEY_SIMPLEX
+		self.ubidot = Ubidot.ubidot()
 
 		# iniciate id counter
 		self.id = 0
@@ -58,7 +57,7 @@ class Camera(object):
 			cv2.putText(frame, str(confidence), (x+5,y+h-5), self.font, 1, (255,255,0), 1)
 			print("\n after putting text on frame")
 		cv2.imwrite('stream.jpg', frame)
-		ubidot.send_face(id)				# ubidot send_face call
+		self.ubidot.send_face(id)				# ubidot send_face call
 		#cv2.imshow('camera', frame)
 #			k = cv2.waitKey(10) & 0xff
 #			if k == 27:
