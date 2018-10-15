@@ -2,7 +2,7 @@ from flask import Flask, Response
 import cv2
 import numpy as np
 import os
-from ..router import ubidot
+from router import ubidot
 
 class Camera(object):
 	def __init__(self):
@@ -30,6 +30,8 @@ class Camera(object):
 		ret, frame = self.cam.read()
 		print("\n after self.cam.read()")
 		gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+		id = "no-face"
+		last_id = "no-face"
 		faces = self.faceCascade.detectMultiScale( 
 				gray,
 				scaleFactor = 1.2,
@@ -38,11 +40,11 @@ class Camera(object):
 				)
 		print("\n after detectMultiScale")
 		for(x,y,w,h) in faces:
-			print("\n before making rectangle")
+#print("\n before making rectangle")
 			cv2.rectangle(frame, (x,y), (x+w,y+h), (0,255,0), 2)
-			print("\n before self.recognizer.predict")
+#print("\n before self.recognizer.predict")
 			id, confidence = self.recognizer.predict(gray[y:y+h,x:x+w])
-			print("\n after self.recognizer.predict")
+#print("\n after self.recognizer.predict")
 
 			# Check if confidence is less them 100 ==> "0" is perfect match
 			if (confidence < 100):
@@ -51,14 +53,20 @@ class Camera(object):
 			else:
 				id = "unknown"
 				confidence = "  {0}%".format(round(100 - confidence))
-			print("\n after confidence check, id : " + str(id))
+#print("\n after confidence check, id : " + str(id))
+			
 			cv2.putText(frame, str(id), (x+5,y-5), self.font, 1, (255,255,255), 2)
 			cv2.putText(frame, str(confidence), (x+5,y+h-5), self.font, 1, (255,255,0), 1)
-			print("\n after putting text on frame")
+#print("\n after putting text on frame")
 		cv2.imwrite('stream.jpg', frame)
-		print("id : " + id)
-		ubidot.send_face(id)				# ubidot send_face call
-		#cv2.imshow('camera', frame)
+#print("id : " + id)
+		if (last_id == id):
+			print("nothing changed")
+		else:
+			ubidot.send_face(id)				# ubidot send_face call !!
+			last_id = id
+			
+#			cv2.imshow('camera', frame)
 #			k = cv2.waitKey(10) & 0xff
 #			if k == 27:
 #				print("\n [INFO] Exiting program and cleaning stuff")
