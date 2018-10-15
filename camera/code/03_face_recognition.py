@@ -2,7 +2,9 @@ from flask import Flask, Response
 import cv2
 import numpy as np
 import os
-from ..router import ubidot
+import sys
+sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))
+from ..router.ubidot import ubidot
 
 class Camera(object):
 	def __init__(self):
