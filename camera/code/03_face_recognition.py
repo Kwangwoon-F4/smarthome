@@ -12,7 +12,6 @@ class Camera(object):
 		self.font = cv2.FONT_HERSHEY_SIMPLEX
 
 		# iniciate id counter
-		self.id = "no-face"
 		self.last_id = "no-face"
 
 		# names related to ids: example ==> 012 : id=1, etc
@@ -38,7 +37,8 @@ class Camera(object):
 				minSize = (20,20),
 				)
 #		print("\n after detectMultiScale")
-		
+
+		id = "no-face"
 		for(x,y,w,h) in faces:
 #print("\n before making rectangle")
 			cv2.rectangle(frame, (x,y), (x+w,y+h), (0,255,0), 2)
@@ -61,10 +61,10 @@ class Camera(object):
 		
 		cv2.imwrite('stream.jpg', frame)
 
-		if ((self.last_id == id) or (id == "unknown" or id == "no-face")):
+		if (self.last_id == id) or (id == "unknown" or id == "no-face"):
 			print("nothing changed")
 		else:
-			print("\nid : " + id + ", last_id : " + last_id)
+			print("\nid : " + id + ", last_id : " + self.last_id)
 			self.last_id = id
 			ubidot.send_face(id)				# ubidot send_face call !!
 			
