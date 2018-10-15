@@ -12,7 +12,8 @@ class Camera(object):
 		self.font = cv2.FONT_HERSHEY_SIMPLEX
 
 		# iniciate id counter
-		self.id = 0
+		self.id = "no-face"
+		self.last_id = "no-face"
 
 		# names related to ids: example ==> 012 : id=1, etc
 		self.names = ['youngil','junyeong','narae','dongho','wonjae']
@@ -30,15 +31,14 @@ class Camera(object):
 		ret, frame = self.cam.read()
 		print("\n after self.cam.read()")
 		gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-		id = "no-face"
-		last_id = "no-face"
 		faces = self.faceCascade.detectMultiScale( 
 				gray,
 				scaleFactor = 1.2,
 				minNeighbors = 5,
 				minSize = (20,20),
 				)
-		print("\n after detectMultiScale")
+#		print("\n after detectMultiScale")
+		
 		for(x,y,w,h) in faces:
 #print("\n before making rectangle")
 			cv2.rectangle(frame, (x,y), (x+w,y+h), (0,255,0), 2)
@@ -57,14 +57,16 @@ class Camera(object):
 			
 			cv2.putText(frame, str(id), (x+5,y-5), self.font, 1, (255,255,255), 2)
 			cv2.putText(frame, str(confidence), (x+5,y+h-5), self.font, 1, (255,255,0), 1)
-#print("\n after putting text on frame")
+		
+		
 		cv2.imwrite('stream.jpg', frame)
-#print("id : " + id)
-		if (last_id == id):
+
+		if ((self.last_id == id) or (id == "unknown" or id == "no-face")):
 			print("nothing changed")
 		else:
+			print("\nid : " + id + ", last_id : " + last_id)
+			self.last_id = id
 			ubidot.send_face(id)				# ubidot send_face call !!
-			last_id = id
 			
 #			cv2.imshow('camera', frame)
 #			k = cv2.waitKey(10) & 0xff
