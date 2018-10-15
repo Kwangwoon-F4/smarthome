@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+  <link href="./css/style.css" rel="stylesheet" type="text/css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+  <script src="./js/jscolor.js"></script>
+</head>
+<body>
+  
+<div class="container-fluid" style="text-align:center; background-color:rgb(53, 61, 59); color:rgb(243, 185, 59)">
+  
+  <h1 class="display-1">SMART USER HOME</h1>
+             
+</div>
+<div>
+  <br><br>
+</div>
+<div class="container-fluid">
+    <img src="./img/home2.png" class="mx-auto d-block" style="width:15%"> 
+</div>
+<div>
+  <br><br><br>
+</div>
+<div id="formDiv" class="container-fluid">
+    <form class="form-inline" action="/action_page.php" method="POST">
+        <label for="name">이름 :&nbsp</label>
+        <input class="form-control" id="name" placeholder="Enter name" name="user_name">
+        &nbsp
+        <label for="light">희망 조도 :&nbsp</label>
+        <input class="form-control" id="light" placeholder="Enter your light" name="user_light">
+        &nbsp
+        <label for="temperature">희망 온도 :&nbsp</label>
+        <input class="form-control" id="temperature" placeholder="Enter your temperature" name="user_temperature">
+        &nbsp
+        <label for="light">희망 습도 :&nbsp</label>
+        <input class="form-control" id="humidity" placeholder="Enter you humidity" name="user_humidity">
+        &nbsp
+        <label for="lightcolor">희망 조명 :&nbsp</label>
+        <input class="jscolor" id="lightcolor" name="user_lightcolor" value = "ab2567">
+        &nbsp
+        <button id="submit_button" type="submit" class="btn btn-warning"><b>입 력</b></button>
+      </form>
+</div>
+
+</body>
+</html>

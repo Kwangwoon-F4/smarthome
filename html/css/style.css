@@ -1,0 +1,14 @@
+body{
+    background-color: rgb(24, 188, 156);
+}
+
+#formDiv{
+    font-weight: bold;
+    color : rgb(255, 166, 34);
+    margin: auto;
+    width: 100%;
+    padding: 10px;
+}
+form {
+    text-align: center;
+}
