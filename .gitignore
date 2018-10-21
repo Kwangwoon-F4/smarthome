@@ -106,5 +106,5 @@ venv.bak/
 .mypy_cache/
 
 # node
-node_modules/
+web/node_modules/
 package-lock.json
