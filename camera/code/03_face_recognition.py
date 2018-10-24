@@ -7,15 +7,15 @@ from router import ubidot
 class Camera(object):
 	def __init__(self):
 		self.recognizer = cv2.face.LBPHFaceRecognizer_create()
-		self.recognizer.read('../trainer/trainer.yml')
-		self.faceCascade = cv2.CascadeClassifier('../data/haarcascade_frontalface_default.xml')
+		self.recognizer.read('trainer/trainer.yml')
+		self.faceCascade = cv2.CascadeClassifier('data/haarcascade_frontalface_default.xml')
 		self.font = cv2.FONT_HERSHEY_SIMPLEX
 
 		# iniciate id counter
 		self.last_id = "no-face"
 
 		# names related to ids: example ==> 012 : id=1, etc
-		self.names = ['youngil','junyeong','narae','dongho','wonjae']
+		self.names = ['youngil','junyeong','narae','dongho','wonjae','seeung']
 
 		# Camera initialize
 		self.cam = cv2.VideoCapture(0)

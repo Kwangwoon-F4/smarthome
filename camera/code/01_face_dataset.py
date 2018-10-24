@@ -18,16 +18,18 @@ class Camera(object):
 		ret, frame = self.cam.read()
 		gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
 		faces = self.face_detector.detectMultiScale(gray, 1.3, 5)
-		for (x,y,w,h) in faces:
-			cv2.rectangle(frame, (x,y), (x+w,y+h), (255,0,0), 2)
-			self.count += 1
-			if self.count > 30:
-				print("\n capture finished")
-				return -1
-			# Save the captured image into the datasets folder
-		cv2.imwrite("../imageset/User." + str(self.face_id) + "." + str(self.count) + ".jpg", gray[y:y+h,x:x+w])
-		#cv2.imshow('image',img)
-		return open("../imageset/User." + str(self.face_id) + "." + str(self.count) + ".jpg", 'rb').read()
+		print("\nfaces : " + str(faces))
+		if faces != '()':
+			for (x,y,w,h) in faces:
+				cv2.rectangle(frame, (x,y), (x+w,y+h), (255,0,0), 2)
+				self.count += 1
+				if self.count > 30:
+					print("\n capture finished")
+					return -1
+				# Save the captured image into the datasets folder
+			cv2.imwrite("../imageset/User." + str(self.face_id) + "." + str(self.count) + ".jpg", gray[y:y+h,x:x+w])
+			#cv2.imshow('image',img)
+			return open("../imageset/User." + str(self.face_id) + "." + str(self.count) + ".jpg", 'rb').read()
 
 app = Flask(__name__)
 	
