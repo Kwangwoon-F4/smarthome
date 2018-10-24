@@ -28,7 +28,7 @@ class Camera(object):
 
 	def get_frame(self):
 		ret, frame = self.cam.read()
-		print("\n after self.cam.read()")
+#		print("\n after self.cam.read()")
 		gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
 		faces = self.faceCascade.detectMultiScale(
 				gray,
@@ -85,9 +85,9 @@ def gen(camera):
 		frame = camera.get_frame()
 		if frame == -1:
 			break
-		print("\n open stream.jpg complete!")
+#		print("\n open stream.jpg complete!")
 		yield(b'--frame\r\n' b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
-		print("\n yield complete!!")
+#		print("\n yield complete!!")
 @app.route('/')
 def video_feed():
 	return Response(gen(Camera()),
