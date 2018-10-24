@@ -30,7 +30,7 @@ class Camera(object):
 		ret, frame = self.cam.read()
 		print("\n after self.cam.read()")
 		gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-		faces = self.faceCascade.detectMultiScale( 
+		faces = self.faceCascade.detectMultiScale(
 				gray,
 				scaleFactor = 1.2,
 				minNeighbors = 5,
@@ -54,11 +54,11 @@ class Camera(object):
 				id = "unknown"
 				confidence = "  {0}%".format(round(100 - confidence))
 #print("\n after confidence check, id : " + str(id))
-			
+
 			cv2.putText(frame, str(id), (x+5,y-5), self.font, 1, (255,255,255), 2)
 			cv2.putText(frame, str(confidence), (x+5,y+h-5), self.font, 1, (255,255,0), 1)
-		
-		
+
+
 		cv2.imwrite('stream.jpg', frame)
 
 		if (self.last_id == id) or (id == "unknown" or id == "no-face"):
@@ -67,7 +67,7 @@ class Camera(object):
 			print("\nid : " + id + ", last_id : " + self.last_id)
 			self.last_id = id
 			ubidot.send_face(id)				# ubidot send_face call !!
-			
+
 #			cv2.imshow('camera', frame)
 #			k = cv2.waitKey(10) & 0xff
 #			if k == 27:
