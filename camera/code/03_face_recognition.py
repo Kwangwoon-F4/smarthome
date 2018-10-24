@@ -66,7 +66,7 @@ class Camera(object):
 		else:
 			print("\nid : " + id + ", last_id : " + self.last_id)
 			self.last_id = id
-			ubidot.send_face(id)				# ubidot send_face call !!
+#			ubidot.send_face(id)				# ubidot send_face call !!
 			
 #			cv2.imshow('camera', frame)
 #			k = cv2.waitKey(10) & 0xff

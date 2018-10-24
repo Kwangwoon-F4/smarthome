@@ -7,8 +7,8 @@ def send_face(name):
 	# user humidity
 	userHumidity = api.get_variable('5bceedb71d847256f30adc5f')
 	humidity = userHumidity.get_values(1)
-	userLight = api.get_variable('5bceed1c1d84725599d4ba29')
-	light = userLight.get_values(1)
+#	userLight = api.get_variable('5bceed1c1d84725599d4ba29')
+#	light = userLight.get_values(1)
 	# temp value
 #	user_face = api.get_variable('5bc2aba51d847271c8bac044')
 
@@ -38,7 +38,6 @@ def send_data(variable):
 		variable.save_value({
 			'value': 3,
 			'context': {
-				'description' : 'wonjae's humidity is high'
+				'description' : 'wonjae\'s humidity is high'
 			}
 		})
-	elif (variable == 'userLight')
