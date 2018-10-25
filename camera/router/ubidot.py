@@ -1,9 +1,7 @@
 from ubidots import ApiClient
-import pymongo
 
 
-def send_face(name):
-    userName = name
+def ubi_connect():
     api = ApiClient(token="BBFF-GfqBNxadAnLhwdTjCV0frdTPKwnnK6")
     # user values
     userHumidity = api.get_variable('5bceedb71d847256f30adc5f')
@@ -22,57 +20,50 @@ def send_face(name):
     # datas dictionary
     ubi_datas = {
         'userId': userId,
-        'userName': userName,
         'userHumidity': userHumidity,
         'userLight': userLight,
         'userLightColor': userLightColor,
         'userTemperature': userTemperature,
         'userSleepTime': userSleepTime,
     }
-    send_data(ubi_datas)
+    return ubi_datas
 
 
-def send_data(datas):
-    # mongodb connection
-    client = pymongo.MongoClient()
-    db = client.userdata
-    collection = db.userdata
-    user_data = collection.find_one({"user_name": datas['userName']})
-    print("humidity : " + str(user_data['user_humidity']))
+def send_data(db_data, ubi_data):
 
-    change_value = datas['userId'].save_value({
-        'value': user_data['user_id'],
+    change_value = ubi_data['userHumidity'].save_value({
+        'value': db_data['user_humidity'],
         'context': {
-            'description': datas['userName'] + '\'s id is ' + str(user_data['user_id'])
+            'description': ubi_data['userName'] + '\'s humidity is ' + str(db_data['user_humidity'])
         }
     })
-    change_value = datas['userHumidity'].save_value({
-        'value': user_data['user_humidity'],
+    change_value = ubi_data['userLight'].save_value({
+        'value': db_data['user_light'],
         'context': {
-            'description': datas['userName'] + '\'s humidity is ' + str(user_data['user_humidity'])
+            'description': ubi_data['userName'] + '\'s light is ' + str(db_data['user_light'])
         }
     })
-    change_value = datas['userLight'].save_value({
-        'value': user_data['user_light'],
+    change_value = ubi_data['userLightColor'].save_value({
+        'value': db_data['user_lightcolor'],
         'context': {
-            'description': datas['userName'] + '\'s light is ' + str(user_data['user_light'])
+            'description': ubi_data['userName'] + '\'s light color is ' + str(db_data['user_lightcolor'])
         }
     })
-    change_value = datas['userLightColor'].save_value({
-        'value': user_data['user_lightcolor'],
+    change_value = ubi_data['userTemperature'].save_value({
+        'value': db_data['user_temperature'],
         'context': {
-            'description': datas['userName'] + '\'s light color is ' + str(user_data['user_lightcolor'])
+            'description': ubi_data['userName'] + '\'s temperature is ' + str(db_data['user_temperature'])
         }
     })
-    change_value = datas['userTemperature'].save_value({
-        'value': user_data['user_temperature'],
+    change_value = ubi_data['userSleepTime'].save_value({
+        'value': db_data['user_sleeptime'],
         'context': {
-            'description': datas['userName'] + '\'s temperature is ' + str(user_data['user_temperature'])
+            'description': ubi_data['userName'] + '\'s sleep time is ' + str(db_data['user_sleeptime'])
         }
     })
-    change_value = datas['userSleepTime'].save_value({
-        'value': user_data['user_sleeptime'],
+    change_value = ubi_data['userId'].save_value({
+        'value': db_data['user_id'],
         'context': {
-            'description': datas['userName'] + '\'s sleep time is ' + str(user_data['user_sleeptime'])
+            'description': ubi_data['userName'] + '\'s id is ' + str(db_data['user_id'])
         }
     })
