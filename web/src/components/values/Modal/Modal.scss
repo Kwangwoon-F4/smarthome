@@ -1,0 +1,50 @@
+.Modal {
+  .dark {
+    background: rgba(0, 0, 0, 0.4);
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    z-index: 15;
+  }
+  .modal {
+    z-index: 20;
+    background: white;
+    position: fixed;
+    left: 50%;
+    top: 8rem;
+    transform: translate(-50%);
+    padding: 1rem;
+    border-radius: 4px;
+
+    .head {
+      display: flex;
+      flex-flow: column nowrap;
+      align-items: flex-end;
+
+      h3 {
+        margin: 0;
+      }
+      .inputValue {
+        border-radius: 3px;
+        margin-top: 1rem;
+        height: 20px;
+      }
+    }
+    .buttons {
+      display: flex;
+      margin: 1rem 0 0 1rem;
+      flex-direction: row-reverse;
+
+      .submit, .close {
+        background-color: transparent;
+        border-radius: 5px;
+        border: 0;
+        margin: 0 3px;
+        font-size: 10pt;
+        cursor: pointer;
+      }
+    }
+  }
+}
