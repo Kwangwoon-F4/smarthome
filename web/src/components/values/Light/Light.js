@@ -3,19 +3,27 @@ import lightImg from 'static/images/light-bulb.png';
 import Modal from '../Modal';
 
 class Light extends Component {
-    state = {
-        modal: false,
-        type: "조도",
-        value: 2
-    };
-    handleToggleModal = (
-        data
-    ) => {
-        this.setState({
+    constructor(props){
+        super(props);
+        this.state = {
             modal: false,
-            data
+            type: "조도",
+            value: this.props.value
+        };
+    }
+
+    sendValue = () => {
+        console.log("in light sendValue func : " + this.state.value);
+        this.props.onUpdate(this.state);
+    };
+
+    handleToggleModal = async (data) => {
+        await this.setState({
+            modal: false,
+            type: data.type,
+            value: data.value
         });
-        console.log(this.state.type + " : "  + data.value);
+        this.sendValue();
     };
 
     showModal = () => {

@@ -5,20 +5,38 @@ import './Humidity.scss';
 
 
 class Humidity extends Component {
-    state = {
-        modal: false,
-        type: "습도",
-        value : 2
+    constructor(props){
+        super(props);
+        this.state = {
+            modal: false,
+            type: "습도",
+            value : this.props.value,
+        };
+        console.log("constructor : " + this.state.value);
+    }
+
+    /*componentDidMount() {
+        console.log("in humidity component: " + this.state.value);
+    }
+    static getDerivedStateFromProps(nextProps, prevState){
+        if (nextProps.value !== prevState.value){
+            return { value: nextProps.value };
+        }
+        return null;
+    }*/
+
+    sendValue = () => {
+        console.log("in Humidity sendValue func : " + this.state.value);
+        this.props.onUpdate(this.state);
     };
 
-    handleToggleModal = (
-        data
-    ) => {
-        this.setState({
+    handleToggleModal = async (data) => {
+        await this.setState({
             modal: false,
-            data
+            type: data.type,
+            value: data.value
         });
-        console.log(this.state.type + " : "  + data.value);
+        this.sendValue();
     };
 
     showModal = () => {

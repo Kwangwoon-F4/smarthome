@@ -5,4 +5,19 @@ body {
   background-color: #393d48;
   padding: 0;
   margin: 0;
+  .sendBtn {
+    text-align: center;
+    button {
+      height: 30px;
+      width: 100px;
+      box-shadow: 0 0 12px 0 rgba(222, 203, 81, 0.29);
+      border: 0;
+      background-color: #decb51;
+      font-size: 15px;
+      font-weight: 500;
+      line-height: 1.5;
+      color: #393d48;
+      font-family: "Noto Sans KR", sans-serif;
+    }
+  }
 }
