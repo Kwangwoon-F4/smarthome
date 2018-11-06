@@ -20,8 +20,8 @@ class Camera(object):
 		faces = self.face_detector.detectMultiScale(gray, 1.3, 5)
 		print("\nfaces : " + str(faces))
 		if faces != '()':
-			for (x,y,w,h) in faces:
-				cv2.rectangle(frame, (x,y), (x+w,y+h), (255,0,0), 2)
+			for (x, y, w, h) in faces:
+				cv2.rectangle(frame, (x, y), (x+w, y+h), (255, 0, 0), 2)
 				self.count += 1
 				if self.count > 30:
 					print("\n capture finished")

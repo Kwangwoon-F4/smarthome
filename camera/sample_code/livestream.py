@@ -8,12 +8,12 @@ class Camera(object):
 		#self.cap = cv2.VideoCapture("http://localhost:8090/out.h264")
 		self.faceCascade = cv2.CascadeClassifier('../data/haarcascade_frontalface_default.xml')
 		self.cap = cv2.VideoCapture(0)
-		self.cap.set(3,640)
-		self.cap.set(4,480)
+		self.cap.set(3, 640)
+		self.cap.set(4, 480)
 
 	def get_frame(self):
 		ret, frame = self.cap.read()
-		gray = cv2.cvtColor(frame,cv2.COLOR_BGR2GRAY)
+		gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
 		faces = self.faceCascade.detectMultiScale(
 			gray,
 			scaleFactor=1.2,

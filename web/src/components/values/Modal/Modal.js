@@ -16,7 +16,9 @@ class Modal extends Component {
 
     handleSubmit = (e) => {
         e.preventDefault(); // 페이지 리로딩 방지
+        console.log("(before) in modal state : " + this.state.value);
         this.props.onClose(this.state);
+        console.log("(after) in modal state : " + this.state.value);
     };
 
 

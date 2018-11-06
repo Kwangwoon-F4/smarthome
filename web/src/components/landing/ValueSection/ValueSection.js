@@ -10,11 +10,56 @@ import Sleeptime from "components/values/Sleeptime/Sleeptime";
 
 class ValueSection extends Component {
 
-    state = {
-        value: 0
+    constructor(props){
+        super(props);
+        this.state = {
+            humidity: this.props.humidity,
+            light: this.props.light,
+            lightColor: this.props.lightColor,
+            temperature: this.props.temperature,
+            sleeptime: this.props.sleeptime
+        };
+    }
+
+    sendValue = () => {
+        this.props.handleUpdate(this.state);
+    };
+
+    onHumidityUpdate = async (data) => {
+        await this.setState({
+          humidity: data.value
+      });
+      this.sendValue();
+    };
+    onLightUpdate = async (data) => {
+        await this.setState({
+            light: data.value
+        });
+        this.sendValue();
+    };
+    onLightColorUpdate = async (data) => {
+        await this.setState({
+            lightColor: data.value
+        });
+        this.sendValue();
+    };
+    onTemperatureUpdate = async (data) => {
+        await this.setState({
+            temperature: data.value
+        });
+        this.sendValue();
+    };
+    onSleeptimeUpdate = async (data) => {
+        await this.setState({
+            sleeptime: data.value
+        });
+        console.log("after onUpdate");
+        console.log(this.state);
+        this.sendValue();
     };
 
     render() {
+        let value = this.state;
         return(
             <div className="valueSection">
                 {/*<div className="slider">
@@ -29,11 +74,26 @@ class ValueSection extends Component {
                     />
                     <span>{Math.round(this.state.value)}</span>
                 </div>*/}
-                <Humidity/>
-                <Temperature/>
-                <Light/>
-                <LightColor/>
-                <Sleeptime/>
+                <Humidity
+                    value={value.humidity}
+                    onUpdate={this.onHumidityUpdate}
+                />
+                <Temperature
+                    value={value.temperature}
+                    onUpdate={this.onTemperatureUpdate}
+                />
+                <Light
+                    value={value.light}
+                    onUpdate={this.onLightUpdate}
+                />
+                <LightColor
+                    value={value.lightColor}
+                    onUpdate={this.onLightColorUpdate}
+                />
+                <Sleeptime
+                    value={value.sleeptime}
+                    onUpdate={this.onSleeptimeUpdate}
+                />
             </div>
         )
     }

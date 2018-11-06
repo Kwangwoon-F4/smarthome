@@ -3,19 +3,27 @@ import temperatureImg from 'static/images/temperature.png';
 import Modal from '../Modal';
 
 class Temperature extends Component {
-    state = {
-        modal: false,
-        type: "온도",
-        value: 23
-    };
-    handleToggleModal = (
-        data
-    ) => {
-        this.setState({
+    constructor(props){
+        super(props);
+        this.state = {
             modal: false,
-            data
+            type: "온도",
+            value: this.props.value
+        };
+    }
+
+    sendValue = () => {
+        console.log("in temperature sendValue func : " + this.state.value);
+        this.props.onUpdate(this.state);
+    };
+
+    handleToggleModal = async (data) => {
+        await this.setState({
+            modal: false,
+            type: data.type,
+            value: data.value
         });
-        console.log(this.state.type + " : "  + data.value);
+        this.sendValue();
     };
 
     showModal = () => {

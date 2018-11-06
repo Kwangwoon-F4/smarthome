@@ -3,19 +3,27 @@ import rgbImg from 'static/images/rgb.png';
 import Modal from '../Modal';
 
 class LightColor extends Component {
-    state = {
-        modal: false,
-        type: "빛 색깔",
-        value: "#ffffff"
-    };
-    handleToggleModal = (
-        data
-    ) => {
-        this.setState({
+    constructor(props){
+        super(props);
+        this.state = {
             modal: false,
-            data
+            type: "빛 색깔",
+            value: this.props.value
+        };
+    }
+
+    sendValue = () => {
+        console.log("in lightColor sendValue func : " + this.state.value);
+        this.props.onUpdate(this.state);
+    };
+
+    handleToggleModal = async (data) => {
+        await this.setState({
+            modal: false,
+            type: data.type,
+            value: data.value
         });
-        console.log(this.state.type + " : "  + data.value);
+        this.sendValue();
     };
 
     showModal = () => {
