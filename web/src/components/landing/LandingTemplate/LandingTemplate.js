@@ -8,6 +8,7 @@ import ValueSection from '../ValueSection';
 class LandingTemplate extends Component {
     state = {
       id: 0,
+      name: 'no-name',
       humidity: 2,
       light: 2,
       lightColor: 255,    // #ffffff
@@ -31,6 +32,10 @@ class LandingTemplate extends Component {
         });
         console.log(this.state);
     };
+    delay = (ms) => {
+        ms += new Date().getTime();
+        while (new Date() < ms){}
+    };
     sendData = async (datas) => {
         const humidityID = '5bdfc9511d8472353149343c';
         const lightID = '5bdfc5db1d84723057db692f';
@@ -45,84 +50,97 @@ class LandingTemplate extends Component {
         const token = 'BBFF-PF7xbbrjhnRpBGjLioQXEhGPWlLtiV';
         const withToken = '/values?token='+token;
 
-        setTimeout(axios.post(endpointUrl+variableUrl+humidityID+withToken,{
+        axios.post(endpointUrl+variableUrl+humidityID+withToken,{
             value: this.state.humidity
         }).then((response) => {
+            console.log(response.data);
             let res = "humidity value is : " + response.data['value'] +
                 ", timestamp is : " + response.data['timestamp'];
-            console.log(response.data);
             alert(res);
         }).catch((error) => {
             alert("error" + error.toString());
-        }),1000);
+        });
 
-        setTimeout(axios.post(endpointUrl+variableUrl+lightID+withToken,{
+        this.delay(500);
+
+        axios.post(endpointUrl+variableUrl+lightID+withToken,{
             value: this.state.light
         }).then((response) => {
+            console.log(response.data);
             let res = "light value is : " + response.data['value'] +
                 ", timestamp is : " + response.data['timestamp'];
-            console.log(response.data);
             alert(res);
         }).catch((error) => {
             alert("error" + error.toString());
-        }),3000);
+        });
 
-        setTimeout(axios.post(endpointUrl+variableUrl+lightColorID+withToken,{
+        this.delay(500);
+
+        axios.post(endpointUrl+variableUrl+lightColorID+withToken,{
             value: this.state.lightColor
         }).then((response) => {
+            console.log(response.data);
             let res = "lightColor value is : " + response.data['value'] +
                 ", timestamp is : " + response.data['timestamp'];
-            console.log(response.data);
             alert(res);
         }).catch((error) => {
             alert("error" + error.toString());
-        }),6000);
+        });
 
-        setTimeout(axios.post(endpointUrl+variableUrl+sleeptimeID+withToken,{
+        this.delay(500);
+
+        axios.post(endpointUrl+variableUrl+sleeptimeID+withToken,{
             value: this.state.sleeptime
         }).then((response) => {
+            console.log(response.data);
             let res = "sleeptime value is : " + response.data['value'] +
                 ", timestamp is : " + response.data['timestamp'];
-            console.log(response.data);
             alert(res);
         }).catch((error) => {
             alert("error" + error.toString());
-        }),9000);
+        });
 
-        setTimeout(axios.post(endpointUrl+variableUrl+userID+withToken,{
+        this.delay(500);
+
+        axios.post(endpointUrl+variableUrl+userID+withToken,{
             value: this.state.id
         }).then((response) => {
+            console.log(response.data);
             let res = "userId value is : " + response.data['value'] +
                 ", timestamp is : " + response.data['timestamp'];
-            console.log(response.data);
             alert(res);
         }).catch((error) => {
             alert("error" + error.toString());
-        }),12000);
+        });
 
-        setTimeout(axios.post(endpointUrl+variableUrl+temperatureID+withToken,{
+        this.delay(500);
+
+        axios.post(endpointUrl+variableUrl+temperatureID+withToken,{
             value: this.state.temperature
         }).then((response) => {
+            console.log(response.data);
             let res = "temperature value is : " + response.data['value'] +
                 ", timestamp is : " + response.data['timestamp'];
-            console.log(response.data);
             alert(res);
         }).catch((error) => {
             alert("error" + error.toString());
-        }),15000);
-
-        /*axios.get(endpointUrl+datasourceUrl+'variables'+withToken)
-            .then((response) => {
-                let returnData = response.data.results;
-                returnData.forEach((item, index, array) => {
-                    console.log(item['name']);
-                    //alert(item['name']);
-                });
-            })
-            .catch((error) => {
-                alert("error");
-            });*/
-       // return alert(axios.get(endpointUrl+datasourceUrl+'variables'+withToken));
+        });
+    };
+    userCreate = () => {
+      const endpointUrl = 'http://localhost:5000/user'
+      axios.post(endpointUrl,{
+          'user_id': this.state.id,
+          'user_name': this.state.name,
+          'user_humidity': this.state.humidity,
+          'user_light': this.state.light,
+          'user_lightcolor': this.state.lightColor,
+          'user_temperature': this.state.temperature,
+          'user_sleeptime': this.state.sleeptime
+      }).then((res) => {
+          console.log(res.data);
+      }).catch((err) => {
+          console.log("err : "+err.toString());
+      });
     };
 
   render() {
@@ -139,7 +157,7 @@ class LandingTemplate extends Component {
             handleUpdate={this.handleUpdate}
         />
         <div className="sendBtn">
-          <button onClick={this.sendData}>적용하기</button>
+          <button onClick={this.userCreate}>적용하기</button>
         </div>
       </div>
     )
