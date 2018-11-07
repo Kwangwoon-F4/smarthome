@@ -157,7 +157,8 @@ class LandingTemplate extends Component {
             handleUpdate={this.handleUpdate}
         />
         <div className="sendBtn">
-          <button onClick={this.userCreate}>적용하기</button>
+          <button onClick={this.sendData}>적용하기</button>
+          <button onClick={this.userCreate}>회원가입</button>
         </div>
       </div>
     )
