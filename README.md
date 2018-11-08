@@ -4,4 +4,4 @@
 
 + arduino
 
-+ haar cascade
++ openCV using haar cascade model
