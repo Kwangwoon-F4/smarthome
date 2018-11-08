@@ -11,9 +11,10 @@ class LandingTemplate extends Component {
       name: 'no-name',
       humidity: 2,
       light: 2,
-      lightColor: 255,    // #ffffff
+      lightColor: 255255255,    // #ffffff
       temperature: 23,
-      sleeptime: 2100           // 21:00
+      sleeptime: 2100,           // 21:00
+      onOff: 1
     };
 
     async ComponentDidMount ()  {
@@ -43,12 +44,25 @@ class LandingTemplate extends Component {
         const sleeptimeID = '5be171331d8472057999d414';
         const userID = '5bdfc97c1d8472353149348d';
         const temperatureID = '5bdfc9441d84723531493427';
+        const onOffID = '5be2bb631d84723ffefdcb97';
 
         const endpointUrl = 'http://industrial.api.ubidots.com/api/v1.6/';
         const variableUrl = 'variables/';
         const datasourceUrl = 'datasources/5bdfc5da1d8472316cd7270e/';
         const token = 'BBFF-PF7xbbrjhnRpBGjLioQXEhGPWlLtiV';
         const withToken = '/values?token='+token;
+
+        axios.post(endpointUrl+variableUrl+onOffID+withToken,{
+            value: this.state.onOff
+        }).then((response) => {
+            console.log(response.data);
+            let res = "onoff value is : " + response.data['value'] +
+                ", timestamp is : " + response.data['timestamp'];
+            alert(res);
+        }).catch((error) => {
+            alert("error" + error.toString());
+        });
+        this.delay(500);
 
         axios.post(endpointUrl+variableUrl+humidityID+withToken,{
             value: this.state.humidity
@@ -60,7 +74,6 @@ class LandingTemplate extends Component {
         }).catch((error) => {
             alert("error" + error.toString());
         });
-
         this.delay(500);
 
         axios.post(endpointUrl+variableUrl+lightID+withToken,{
@@ -73,7 +86,6 @@ class LandingTemplate extends Component {
         }).catch((error) => {
             alert("error" + error.toString());
         });
-
         this.delay(500);
 
         axios.post(endpointUrl+variableUrl+lightColorID+withToken,{
@@ -86,7 +98,6 @@ class LandingTemplate extends Component {
         }).catch((error) => {
             alert("error" + error.toString());
         });
-
         this.delay(500);
 
         axios.post(endpointUrl+variableUrl+sleeptimeID+withToken,{
@@ -99,7 +110,6 @@ class LandingTemplate extends Component {
         }).catch((error) => {
             alert("error" + error.toString());
         });
-
         this.delay(500);
 
         axios.post(endpointUrl+variableUrl+userID+withToken,{
@@ -112,7 +122,6 @@ class LandingTemplate extends Component {
         }).catch((error) => {
             alert("error" + error.toString());
         });
-
         this.delay(500);
 
         axios.post(endpointUrl+variableUrl+temperatureID+withToken,{
@@ -142,6 +151,30 @@ class LandingTemplate extends Component {
           console.log("err : "+err.toString());
       });
     };
+    shutOff = async() => {
+        await this.setState({
+            onOff: 2
+        });
+
+        const onOffID = '5be2bb631d84723ffefdcb97';
+
+        const endpointUrl = 'http://industrial.api.ubidots.com/api/v1.6/';
+        const variableUrl = 'variables/';
+        const datasourceUrl = 'datasources/5bdfc5da1d8472316cd7270e/';
+        const token = 'BBFF-PF7xbbrjhnRpBGjLioQXEhGPWlLtiV';
+        const withToken = '/values?token='+token;
+
+        axios.post(endpointUrl+variableUrl+onOffID+withToken,{
+            value: this.state.onOff
+        }).then((response) => {
+            console.log(response.data);
+            let res = "on/off value is : " + response.data['value'] +
+                ", timestamp is : " + response.data['timestamp'];
+            alert(res);
+        }).catch((error) => {
+            alert("error" + error.toString());
+        });
+    };
 
   render() {
     let state = this.state;
@@ -158,7 +191,8 @@ class LandingTemplate extends Component {
         />
         <div className="sendBtn">
           <button onClick={this.sendData}>적용하기</button>
-          <button onClick={this.userCreate}>회원가입</button>
+          <button onClick={this.userCreate}>회원가입(임시)</button>
+          <button onClick={this.shutOff}>전원차단(임시)</button>
         </div>
       </div>
     )
