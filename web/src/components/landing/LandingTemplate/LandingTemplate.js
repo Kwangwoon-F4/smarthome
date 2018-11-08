@@ -4,10 +4,11 @@ import './LandingTemplate.scss';
 
 import LogoSection from '../LogoSection';
 import ValueSection from '../ValueSection';
+import Serve from 'service/Service';
 
 class LandingTemplate extends Component {
     state = {
-      id: 0,
+      id: 100,
       name: 'no-name',
       humidity: 2,
       light: 2,
@@ -23,7 +24,7 @@ class LandingTemplate extends Component {
         })
     }
 
-    handleUpdate = async(data) => {
+    handleUpdate = async (data) => {
         await this.setState({
             humidity: data.humidity,
             light: data.light,
@@ -37,7 +38,20 @@ class LandingTemplate extends Component {
         ms += new Date().getTime();
         while (new Date() < ms){}
     };
-    sendData = async (datas) => {
+
+    postValue = (endpointUrl, stateValue) => {
+        axios.post(endpointUrl, {
+            value: stateValue,
+        }).then((response) => {
+            console.log(response.data);
+            let res = endpointUrl+" value is : " + response.data['value'] +
+                ", timestamp is : " + response.data['timestamp'];
+            alert(res);
+        }).catch((error) => {
+            alert("error" + error.toString());
+        });
+    };
+    sendData = async () => {
         const humidityID = '5bdfc9511d8472353149343c';
         const lightID = '5bdfc5db1d84723057db692f';
         const lightColorID = '5bdfc98d1d847234fe29e864';
@@ -46,97 +60,37 @@ class LandingTemplate extends Component {
         const temperatureID = '5bdfc9441d84723531493427';
         const onOffID = '5be2bb631d84723ffefdcb97';
 
-        const endpointUrl = 'http://industrial.api.ubidots.com/api/v1.6/';
-        const variableUrl = 'variables/';
-        const datasourceUrl = 'datasources/5bdfc5da1d8472316cd7270e/';
+        const endpointUrl = 'http://industrial.api.ubidots.com/api/v1.6/variables/';
         const token = 'BBFF-PF7xbbrjhnRpBGjLioQXEhGPWlLtiV';
         const withToken = '/values?token='+token;
 
-        axios.post(endpointUrl+variableUrl+onOffID+withToken,{
-            value: this.state.onOff
-        }).then((response) => {
-            console.log(response.data);
-            let res = "onoff value is : " + response.data['value'] +
-                ", timestamp is : " + response.data['timestamp'];
-            alert(res);
-        }).catch((error) => {
-            alert("error" + error.toString());
-        });
-        this.delay(500);
+        const humidityUrl = endpointUrl+humidityID+withToken;
+        const lightUrl = endpointUrl+lightID+withToken;
+        const lightColorUrl = endpointUrl+lightColorID+withToken;
+        const temperatureUrl = endpointUrl+temperatureID+withToken;
+        const userIdUrl = endpointUrl+userID+withToken;
+        const sleeptimeUrl = endpointUrl+sleeptimeID+withToken;
+        const onOffUrl = endpointUrl+onOffID+withToken;
 
-        axios.post(endpointUrl+variableUrl+humidityID+withToken,{
-            value: this.state.humidity
-        }).then((response) => {
-            console.log(response.data);
-            let res = "humidity value is : " + response.data['value'] +
-                ", timestamp is : " + response.data['timestamp'];
-            alert(res);
-        }).catch((error) => {
-            alert("error" + error.toString());
-        });
-        this.delay(500);
+        //Serve.postValue()
+        await this.postValue(onOffUrl, this.state.onOff);
+        this.delay(300);
+        await this.postValue(userIdUrl, this.state.id);
+        this.delay(300);
+        await this.postValue(humidityUrl, this.state.humidity);
+        this.delay(300);
+        await this.postValue(lightUrl, this.state.light);
+        this.delay(300);
+        await this.postValue(lightColorUrl, this.state.lightColor);
+        this.delay(300);
+        await this.postValue(temperatureUrl, this.state.temperature);
+        this.delay(300);
+        await this.postValue(sleeptimeUrl, this.state.sleeptime);
 
-        axios.post(endpointUrl+variableUrl+lightID+withToken,{
-            value: this.state.light
-        }).then((response) => {
-            console.log(response.data);
-            let res = "light value is : " + response.data['value'] +
-                ", timestamp is : " + response.data['timestamp'];
-            alert(res);
-        }).catch((error) => {
-            alert("error" + error.toString());
-        });
-        this.delay(500);
-
-        axios.post(endpointUrl+variableUrl+lightColorID+withToken,{
-            value: this.state.lightColor
-        }).then((response) => {
-            console.log(response.data);
-            let res = "lightColor value is : " + response.data['value'] +
-                ", timestamp is : " + response.data['timestamp'];
-            alert(res);
-        }).catch((error) => {
-            alert("error" + error.toString());
-        });
-        this.delay(500);
-
-        axios.post(endpointUrl+variableUrl+sleeptimeID+withToken,{
-            value: this.state.sleeptime
-        }).then((response) => {
-            console.log(response.data);
-            let res = "sleeptime value is : " + response.data['value'] +
-                ", timestamp is : " + response.data['timestamp'];
-            alert(res);
-        }).catch((error) => {
-            alert("error" + error.toString());
-        });
-        this.delay(500);
-
-        axios.post(endpointUrl+variableUrl+userID+withToken,{
-            value: this.state.id
-        }).then((response) => {
-            console.log(response.data);
-            let res = "userId value is : " + response.data['value'] +
-                ", timestamp is : " + response.data['timestamp'];
-            alert(res);
-        }).catch((error) => {
-            alert("error" + error.toString());
-        });
-        this.delay(500);
-
-        axios.post(endpointUrl+variableUrl+temperatureID+withToken,{
-            value: this.state.temperature
-        }).then((response) => {
-            console.log(response.data);
-            let res = "temperature value is : " + response.data['value'] +
-                ", timestamp is : " + response.data['timestamp'];
-            alert(res);
-        }).catch((error) => {
-            alert("error" + error.toString());
-        });
     };
+
     userCreate = () => {
-      const endpointUrl = 'http://localhost:5000/user'
+      const endpointUrl = 'http://localhost:5000/user';
       axios.post(endpointUrl,{
           'user_id': this.state.id,
           'user_name': this.state.name,
@@ -145,35 +99,36 @@ class LandingTemplate extends Component {
           'user_lightcolor': this.state.lightColor,
           'user_temperature': this.state.temperature,
           'user_sleeptime': this.state.sleeptime
-      }).then((res) => {
+      }, {
+            headers: {
+              'Content-Type': 'application/json'
+          }
+        }).then((res) => {
           console.log(res.data);
       }).catch((err) => {
           console.log("err : "+err.toString());
       });
     };
+
     shutOff = async() => {
         await this.setState({
-            onOff: 2
+            onOff: 2,
+            id: 0
         });
 
+        const userID = '5bdfc97c1d8472353149348d';
         const onOffID = '5be2bb631d84723ffefdcb97';
 
-        const endpointUrl = 'http://industrial.api.ubidots.com/api/v1.6/';
-        const variableUrl = 'variables/';
-        const datasourceUrl = 'datasources/5bdfc5da1d8472316cd7270e/';
+        const endpointUrl = 'http://industrial.api.ubidots.com/api/v1.6/variables/';
         const token = 'BBFF-PF7xbbrjhnRpBGjLioQXEhGPWlLtiV';
         const withToken = '/values?token='+token;
 
-        axios.post(endpointUrl+variableUrl+onOffID+withToken,{
-            value: this.state.onOff
-        }).then((response) => {
-            console.log(response.data);
-            let res = "on/off value is : " + response.data['value'] +
-                ", timestamp is : " + response.data['timestamp'];
-            alert(res);
-        }).catch((error) => {
-            alert("error" + error.toString());
-        });
+        const userIdUrl = endpointUrl+userID+withToken;
+        const onOffUrl = endpointUrl+onOffID+withToken;
+
+        this.postValue(userIdUrl, this.state.id);
+        this.postValue(onOffUrl, this.state.onOff);
+
     };
 
   render() {
