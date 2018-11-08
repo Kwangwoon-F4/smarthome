@@ -4,9 +4,9 @@ from PIL import Image
 import os
 
 # Path for face image database
-path = '../imageset/'
+path = 'imageset/'
 recognizer = cv2.face.LBPHFaceRecognizer_create()
-detector = cv2.CascadeClassifier("../data/haarcascade_frontalface_default.xml");
+detector = cv2.CascadeClassifier("data/haarcascade_frontalface_default.xml");
 
 
 # function to get the images and label data
@@ -30,7 +30,7 @@ print("\n [INFO] Training faces. It will take a few seconds. Wait ...")
 faces, ids = getImageAndLabels(path)
 recognizer.train(faces, np.array(ids))
 # Save the model into trainer/trainer.yml
-recognizer.write('../trainer/trainer.yml')  # recognizer.save() doesn't work
+recognizer.write('trainer/trainer.yml') # recognizer.save() doesn't work
 # Print the number of faces trained and end program
 print("\n [INFO] {0} faces trained. trained file saved at trainer/trainer.yml. Exiting Program".format(
     len(np.unique(ids))))
