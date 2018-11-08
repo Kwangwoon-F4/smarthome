@@ -4,7 +4,10 @@ import './LandingTemplate.scss';
 
 import LogoSection from '../LogoSection';
 import ValueSection from '../ValueSection';
+import HeaderSection from "../HeaderSection";
+import SignupBtn from 'components/signup/SignupBtn';
 import Serve from 'service/Service';
+
 
 class LandingTemplate extends Component {
     state = {
@@ -18,11 +21,11 @@ class LandingTemplate extends Component {
       onOff: 1
     };
 
-    async ComponentDidMount ()  {
+    /*async ComponentDidMount ()  {
         this.setState({
 
         })
-    }
+    }*/
 
     handleUpdate = async (data) => {
         await this.setState({
@@ -44,11 +47,11 @@ class LandingTemplate extends Component {
             value: stateValue,
         }).then((response) => {
             console.log(response.data);
-            let res = endpointUrl+" value is : " + response.data['value'] +
+            /*let res = endpointUrl+" value is : " + response.data['value'] +
                 ", timestamp is : " + response.data['timestamp'];
-            alert(res);
+            alert(res);*/
         }).catch((error) => {
-            alert("error" + error.toString());
+            alert("오류 : " + error.toString());
         });
     };
     sendData = async () => {
@@ -73,6 +76,7 @@ class LandingTemplate extends Component {
         const onOffUrl = endpointUrl+onOffID+withToken;
 
         //Serve.postValue()
+        alert("잠시 기다려주세요");
         await this.postValue(onOffUrl, this.state.onOff);
         this.delay(300);
         await this.postValue(userIdUrl, this.state.id);
@@ -86,28 +90,13 @@ class LandingTemplate extends Component {
         await this.postValue(temperatureUrl, this.state.temperature);
         this.delay(300);
         await this.postValue(sleeptimeUrl, this.state.sleeptime);
-
-    };
-
-    userCreate = () => {
-      const endpointUrl = 'http://localhost:5000/user';
-      axios.post(endpointUrl,{
-          'user_id': this.state.id,
-          'user_name': this.state.name,
-          'user_humidity': this.state.humidity,
-          'user_light': this.state.light,
-          'user_lightcolor': this.state.lightColor,
-          'user_temperature': this.state.temperature,
-          'user_sleeptime': this.state.sleeptime
-      }, {
-            headers: {
-              'Content-Type': 'application/json'
-          }
-        }).then((res) => {
-          console.log(res.data);
-      }).catch((err) => {
-          console.log("err : "+err.toString());
-      });
+        alert("적용이 완료되었습니다! " +
+            "\n센서 작동까지 시간이 조금 소요될 수 있습니다." +
+            "\n\n희망 습도: " + this.state.humidity +
+            "\n희망 조도: " + this.state.light +
+            "\n조명 색깔: " + this.state.lightColor +
+            "\n희망 온도: " + this.state.temperature +
+            "\n취침 시간: " + this.state.temperature);
     };
 
     shutOff = async() => {
@@ -128,6 +117,7 @@ class LandingTemplate extends Component {
 
         this.postValue(userIdUrl, this.state.id);
         this.postValue(onOffUrl, this.state.onOff);
+        alert('전원이 차단되었습니다.')
 
     };
 
@@ -135,19 +125,25 @@ class LandingTemplate extends Component {
     let state = this.state;
     return (
       <div className="landing">
+        <div className="landingHeader">
+          <HeaderSection/>
+          <div className="buttons">
+            <button onClick={this.shutOff}>전원차단</button>
+            <SignupBtn/>
+          </div>
+        </div>
         <LogoSection/>
         <ValueSection
-            humidity={state.humidity}
-            light={state.light}
-            lightColor={state.lightColor}
-            temperature={state.temperature}
-            sleeptime={state.sleeptime}
-            handleUpdate={this.handleUpdate}
+          humidity={state.humidity}
+          light={state.light}
+          lightColor={state.lightColor}
+          temperature={state.temperature}
+          sleeptime={state.sleeptime}
+          handleUpdate={this.handleUpdate}
         />
         <div className="sendBtn">
           <button onClick={this.sendData}>적용하기</button>
-          <button onClick={this.userCreate}>회원가입(임시)</button>
-          <button onClick={this.shutOff}>전원차단(임시)</button>
+          {/*<button onClick={this.shutOff}>전원차단</button>*/}
         </div>
       </div>
     )

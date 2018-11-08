@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import CircularSlider from 'react-circular-slider-bar';
+//import CircularSlider from 'react-circular-slider-bar';
 import './ValueSection.scss';
 
 import Humidity from 'components/values/Humidity';
