@@ -1,3 +1,7 @@
 # smarthome by KWF4
 
-React.js + Flask
++ React.js + Flask
+
++ arduino
+
++ haar cascade
