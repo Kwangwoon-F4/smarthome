@@ -8,8 +8,8 @@ from router import ubidot, db_conn
 class Camera(object):
     def __init__(self):
         self.recognizer = cv2.face.LBPHFaceRecognizer_create()
-        self.recognizer.read('trainer/trainer.yml')
-        self.faceCascade = cv2.CascadeClassifier('data/haarcascade_frontalface_default.xml')
+        self.recognizer.read('../trainer/trainer.yml')
+        self.faceCascade = cv2.CascadeClassifier('../data/haarcascade_frontalface_default.xml')
         self.font = cv2.FONT_HERSHEY_SIMPLEX
 
         # iniciate id counter
