@@ -12,7 +12,7 @@ class Camera(object):
 		self.cam = cv2.VideoCapture(0)
 		self.cam.set(3, 640)
 		self.cam.set(4, 480)
-		self.face_detector = cv2.CascadeClassifier('../data/haarcascade_frontalface_default.xml')
+		self.face_detector = cv2.CascadeClassifier('data/haarcascade_frontalface_default.xml')
 		# For each person, enter one numeric face id
 		self.face_id = input('\n enter user id end press <return> ==> ')
 		print("\n [INFO] Initializing face capture. Look the camera and wait ...")
@@ -37,9 +37,9 @@ class Camera(object):
 					print("\n capture finished")
 					return -1
 				# Save the captured image into the datasets folder
-			cv2.imwrite("../imageset/User." + str(self.face_id) + "." + str(self.count) + ".jpg", gray[y:y+h,x:x+w])
+			cv2.imwrite("imageset/User." + str(self.face_id) + "." + str(self.count) + ".jpg", gray[y:y+h,x:x+w])
 			#cv2.imshow('image',img)
-			return open("../imageset/User." + str(self.face_id) + "." + str(self.count) + ".jpg", 'rb').read()
+			return open("imageset/User." + str(self.face_id) + "." + str(self.count) + ".jpg", 'rb').read()
 
 	# function to get the images and label data
 	def getImageAndLabels(self):

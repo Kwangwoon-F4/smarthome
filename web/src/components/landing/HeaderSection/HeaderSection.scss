@@ -1,0 +1,15 @@
+.header {
+  height: 60px;
+  img:nth-child(1) {
+    height: 40px;
+    width: auto;
+    margin-top: 10px;
+    margin-left: 30px;
+  }
+  img:nth-child(2) {
+    height: 40px;
+    width: auto;
+    margin-top: 10px;
+    margin-left: 10px;
+  }
+}
