@@ -29,6 +29,7 @@ class Camera(object):
 		gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
 		faces = self.face_detector.detectMultiScale(gray, 1.3, 5)
 		print("\nfaces : " + str(faces))
+		print(faces)
 		if faces != '()':
 			for (x, y, w, h) in faces:
 				cv2.rectangle(frame, (x, y), (x+w, y+h), (255, 0, 0), 2)
@@ -74,7 +75,7 @@ def gen(camera):
 	faces, ids = camera.getImageAndLabels()
 	camera.recognizer.train(faces, np.array(ids))
 	# Save the model into trainer/trainer.yml
-	camera.recognizer.write('../trainer/trainer.yml')  # recognizer.save() doesn't work
+	camera.recognizer.write('trainer/trainer.yml')  # recognizer.save() doesn't work
 	# Print the number of faces trained and end program
 	print("\n [INFO] {0} faces trained. trained file saved at trainer/trainer.yml. Exiting Program".format(
 		len(np.unique(ids))))
