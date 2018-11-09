@@ -2,6 +2,7 @@ from ubidots import ApiClient
 
 
 def ubi_connect():
+    print('ubi_connect()')
     api = ApiClient(token="BBFF-PF7xbbrjhnRpBGjLioQXEhGPWlLtiV")
     # user values
     userHumidity = api.get_variable('5bdfc9511d8472353149343c')
