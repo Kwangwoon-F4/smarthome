@@ -2,20 +2,21 @@ from ubidots import ApiClient
 
 
 def ubi_connect():
-    api = ApiClient(token="BBFF-GfqBNxadAnLhwdTjCV0frdTPKwnnK6")
+    api = ApiClient(token="BBFF-PF7xbbrjhnRpBGjLioQXEhGPWlLtiV")
     # user values
-    userHumidity = api.get_variable('5bceedb71d847256f30adc5f')
+    userHumidity = api.get_variable('5bdfc9511d8472353149343c')
     #	humidity = userHumidity.get_values(1)
-    userLight = api.get_variable('5bceed1c1d84725599d4ba29')
+    userLight = api.get_variable('5bdfc5db1d84723057db692f')
     #	light = userLight.get_values(1)
-    userLightColor = api.get_variable('5bceede61d847256f30adc8f')
+    userLightColor = api.get_variable('5bdfc98d1d847234fe29e864')
     #	lightColor = userLightColor.get_values(1)
-    userTemperature = api.get_variable('5bceedab1d847256d1909349')
+    userTemperature = api.get_variable('5bdfc9441d84723531493427')
     #	temperature = userTemperature.get_values(1)
-    userSleepTime = api.get_variable('5bd05e171d84725b56333ffe')
+    userSleepTime = api.get_variable('5be171331d8472057999d414')
     #	sleepTime = userSleepTime.get_values(1)
-    userId = api.get_variable('5bd05ecf1d84725bca494a79')
+    userId = api.get_variable('5bdfc97c1d8472353149348d')
     #	id = userId.get_values(1)
+    # onOff = api.get_variable('5be2bb631d84723ffefdcb97')
 
     # datas dictionary
     ubi_datas = {

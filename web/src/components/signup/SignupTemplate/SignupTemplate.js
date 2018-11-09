@@ -41,7 +41,7 @@ class SignupTemplate extends Component {
     };
 
     userCreate = () => {
-        const endpointUrl = 'http://1114bebc.ngrok.io/user';  // 주소 바꿔줘야 함.
+        const endpointUrl = 'http://8a868bcf.ngrok.io/user';  // 주소 바꿔줘야 함.
         axios.post(endpointUrl,{
             'user_id': -1,  // 신규가입유저
             'user_name': this.state.name,

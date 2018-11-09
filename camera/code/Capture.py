@@ -79,10 +79,12 @@ def gen(camera):
 	print("\n [INFO] {0} faces trained. trained file saved at trainer/trainer.yml. Exiting Program".format(
 		len(np.unique(ids))))
 
+
 @app.route('/')
 def video_feed():
 	return Response(gen(Camera()), 
 		mimetype='multipart/x-mixed-replace;boundary=frame')
+
 
 if __name__ == '__main__':
 	app.run(host='0.0.0.0', debug=True)		

@@ -2,7 +2,7 @@ from flask import Flask
 from flask_restful import Resource, Api
 from flask_restful import reqparse
 from flask_cors import CORS
-from code import Capture
+# from code import Capture
 from .db_conn import mongoConn
 
 app = Flask(__name__)
@@ -73,7 +73,7 @@ class CreateUser(Resource):
 
 
 api.add_resource(CreateUser, '/user')
-api.add_resource(Capture.video_feed(), '/capture')
+# api.add_resource(Capture.video_feed(), '/capture')
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', debug=True)
