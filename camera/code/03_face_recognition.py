@@ -66,9 +66,9 @@ class Camera(object):
         else:
             print("\nid : " + id + ", last_id : " + self.last_id)
             self.last_id = id
-            db_data = collection.find_one({"user_name": id})      # db_data['id'] from DB
-            ubi_data['userName'] = id                             # add to datas dictionary
-            ubidot.send_data(db_data, ubi_data)                   # ubidot send_data call !!
+            # db_data = collection.find_one({"user_name": id})      # db_data['id'] from DB
+            # ubi_data['userName'] = id                             # add to datas dictionary
+            # ubidot.send_data(db_data, ubi_data)                   # ubidot send_data call !!
 
         #			cv2.imshow('camera', frame)
         #			k = cv2.waitKey(10) & 0xff
