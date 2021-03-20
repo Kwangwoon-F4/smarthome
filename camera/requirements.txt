@@ -9,7 +9,7 @@ Flask-RESTful==0.3.6
 idna==2.7
 image==1.5.27
 itsdangerous==1.1.0
-Jinja2==2.10
+Jinja2==2.11.3
 MarkupSafe==1.1.0
 numpy==1.15.4
 opencv-contrib-python==3.4.3.18
